@@ -1,0 +1,11 @@
+java.version=21.0.12.1
+N        operation     median ms
+1000     add                7.52
+1000     search             2.89
+1000     delete             7.00
+5000     add              141.25
+5000     search            78.17
+5000     delete            49.83
+20000    add             1073.34
+20000    search           798.91
+20000    delete           700.58

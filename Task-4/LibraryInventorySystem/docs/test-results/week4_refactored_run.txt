@@ -1,0 +1,123 @@
+# Week 4 refactored code, JUnit console launcher (JUnit Jupiter 5.10.1)
+?
+?? JUnit Platform Suite ?
+?? JUnit Jupiter ?
+?  ?? InputHandler (console input) ?
+?  ?  ?? readLine_printsPromptAndReturnsLine() ?
+?  ?  ?? readLine_endOfInput_throwsNoSuchElementException() ?
+?  ?  ?? readYear_emptyLine_throwsInvalidBookException() ?
+?  ?  ?? readYear_parsesNumberWithSurroundingSpaces() ?
+?  ?  ?? readYear_nonNumericText_throwsInvalidBookException() ?
+?  ?? BookValidator ?
+?  ?  ?? normalizeIsbn_hyphensAndSpacesAreRemoved() ?
+?  ?  ?? normalizeIsbn_nullOrBlank_throws() ?
+?  ?  ?? validateTitle_trimsWhitespace() ?
+?  ?  ?? validateYear_lowerBoundary() ?
+?  ?  ?? normalizeIsbn_thirteenDigits_isAccepted() ?
+?  ?  ?? validateYear_zeroAndNegative_throw() ?
+?  ?  ?? validateAuthor_nullOrBlank_throws() ?
+?  ?  ?? validateTitle_nullOrBlank_throws() ?
+?  ?  ?? normalizeIsbn_tenDigits_isAccepted() ?
+?  ?  ?? normalizeIsbn_wrongLengthOrCharacters_throws() ?
+?  ?  ?? normalizeIsbn_trailingLowercaseXIsAcceptedAndUppercased() ?
+?  ?  ?? validateYear_upperBoundary_currentYearOkNextYearRejected() ?
+?  ?? Week 4 refactoring behaviour ?
+?  ?  ?? updateDetails_withBadYear_leavesBookUnchanged() ?
+?  ?  ?? deletingMiddleBook_keepsInsertionOrderOfTheRest() ?
+?  ?  ?? deletedIsbn_canBeAddedAgain_andGoesToTheEnd() ?
+?  ?  ?? validatorMessages_nameTheCorrectField() ?
+?  ?  ?? allApplicationExceptions_shareTheInventoryExceptionBase() ?
+?  ?  ?? updateTitleAuthorAndYear_changeOnlyThatField() ?
+?  ?  ?? menu_invalidChoiceMessage_mentionsTheValidRange() ?
+?  ?  ?? isbnWithHyphens_findsTheSameBookAsPlainIsbn() ?
+?  ?  ?? menu_updateWithBadYear_showsErrorAndKeepsOldData() ?
+?  ?  ?? menu_printsNumberedEntriesAndExit() ?
+?  ?  ?? updatingBook_doesNotChangeItsPositionInTheListing() ?
+?  ?  ?? duplicateAdd_withDifferentFormat_isRejectedAndSizeUnchanged() ?
+?  ?? BookInventory ?
+?  ?  ?? Edge cases ?
+?  ?  ?  ?? veryLongTitle_isAccepted() ?
+?  ?  ?  ?? freshInventory_isEmpty() ?
+?  ?  ?  ?? titleAndAuthorAreTrimmed() ?
+?  ?  ?  ?? failedOperationsDoNotCorruptLaterOperations() ?
+?  ?  ?  ?? yearBoundaryValues_areAcceptedAtLimitsAndRejectedBeyond() ?
+?  ?  ?  ?? specialCharactersInTitle_arePreserved() ?
+?  ?  ?  ?? multipleConsecutiveCrudOperations_leaveConsistentState() ?
+?  ?  ?  ?? isbnWithTrailingX_isSupported() ?
+?  ?  ?? Delete book ?
+?  ?  ?  ?? deleteSameBookTwice_secondAttemptFails() ?
+?  ?  ?  ?? deletedBook_nolongerExists() ?
+?  ?  ?  ?? deleteWithInvalidIsbn_throwsInvalidBookAndKeepsAllBooks() ?
+?  ?  ?  ?? deleteAllBooks_leavesEmptyInventory() ?
+?  ?  ?  ?? deleteExistingBook_removesIt() ?
+?  ?  ?  ?? deleteNonexistentBook_throwsAndKeepsAllBooks() ?
+?  ?  ?  ?? deleteLeavesUnrelatedBooksUnchanged() ?
+?  ?  ?  ?? deleteFromEmptyInventory_throwsBookNotFound() ?
+?  ?  ?? Update book ?
+?  ?  ?  ?? updateAllFieldsWithValidIsbn_storesEverything() ?
+?  ?  ?  ?? updateOnEmptyInventory_throwsBookNotFound() ?
+?  ?  ?  ?? updateModifiesOnlyTheTargetBook() ?
+?  ?  ?  ?? updateNonexistentBook_throwsBookNotFound() ?
+?  ?  ?  ?? updatePublicationYear_isStored() ?
+?  ?  ?  ?? updateAuthor_isStored() ?
+?  ?  ?  ?? updateWithPartiallyInvalidInput_isAtomic() ?
+?  ?  ?  ?? updateWithInvalidInput_throwsAndLeavesBookUnchanged() ?
+?  ?  ?  ?? updateDoesNotChangeInventorySize() ?
+?  ?  ?  ?? updateWithInvalidIsbn_throwsInvalidBook() ?
+?  ?  ?  ?? updateTitle_isStored() ?
+?  ?  ?? Read / view and search ?
+?  ?  ?  ?? searchWithPartialIsbn_doesNotMatch() ?
+?  ?  ?  ?? findOnEmptyInventory_returnsEmptyOptional() ?
+?  ?  ?  ?? getBookByIsbnNonexistent_throwsBookNotFound() ?
+?  ?  ?  ?? bookDetails_areDisplayedCorrectly() ?
+?  ?  ?  ?? findExistingBook_returnsIt() ?
+?  ?  ?  ?? getAllBooks_returnedListCannotModifyInventory() ?
+?  ?  ?  ?? getAllBooks_onEmptyInventory_returnsEmptyList() ?
+?  ?  ?  ?? searchWithInvalidIsbn_throwsInvalidBook() ?
+?  ?  ?  ?? searchAcceptsHyphenatedIsbn() ?
+?  ?  ?  ?? findNonexistentBook_returnsEmptyOptional() ?
+?  ?  ?  ?? getAllBooks_returnsEveryBook() ?
+?  ?  ?? Create / add book ?
+?  ?     ?? addNullBook_throwsInvalidBookException() ?
+?  ?     ?? addBookWithEmptyTitle_throwsAndInventoryUnchanged() ?
+?  ?     ?? addBookWithFutureYear_isRejected() ?
+?  ?     ?? addBookWithSameIsbnInDifferentFormat_isDuplicate() ?
+?  ?     ?? addValidBook_isStored() ?
+?  ?     ?? addBookWithInvalidIsbn_throwsAndInventoryUnchanged() ?
+?  ?     ?? addBookWithInvalidYear_throwsAndInventoryUnchanged() ?
+?  ?     ?? addBookWithNullFields_throwsInvalidBookException() ?
+?  ?     ?? addBookWithEmptyAuthor_throwsAndInventoryUnchanged() ?
+?  ?     ?? addBookWithExistingIsbn_throwsDuplicateAndKeepsOriginal() ?
+?  ?     ?? addMultipleBooks_allStoredInInsertionOrder() ?
+?  ?? InventoryApp (console menu) ?
+?     ?? addBookWithDuplicateIsbn_showsError() ?
+?     ?? deleteMissingBook_showsError() ?
+?     ?? endOfInput_exitsGracefullyWithoutException() ?
+?     ?? invalidMenuChoices_showMessageAndContinue() ?
+?     ?? searchMissingBook_showsNotFoundError() ?
+?     ?? searchInvalidIsbn_showsValidationError() ?
+?     ?? updateMissingBook_showsError() ?
+?     ?? searchExistingBook_showsDetails() ?
+?     ?? addBookWithEmptyTitle_showsError() ?
+?     ?? addBookWithNonNumericYear_showsErrorAndStoresNothing() ?
+?     ?? viewAllOnEmptyInventory_showsEmptyMessage() ?
+?     ?? exitChoice_endsProgramWithGoodbye() ?
+?     ?? addBookThroughMenu_storesBook() ?
+?     ?? fullSessionOfConsecutiveOperations_worksEndToEnd() ?
+?     ?? updateThroughMenu_changesBook() ?
+?     ?? deleteThroughMenu_removesBook() ?
+?     ?? viewAll_listsEveryBookWithDetails() ?
+?? JUnit Vintage ?
+Test run finished after 742 ms
+[        13 containers found      ]
+[         0 containers skipped    ]
+[        13 containers started    ]
+[         0 containers aborted    ]
+[        13 containers successful ]
+[         0 containers failed     ]
+[        95 tests found           ]
+[         0 tests skipped         ]
+[        95 tests started         ]
+[         0 tests aborted         ]
+[        95 tests successful      ]
+[         0 tests failed          ]
