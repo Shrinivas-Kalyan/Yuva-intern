@@ -1,0 +1,22 @@
+# Executed 2026-10-25 with a local JUnit-compatible mini runner (NOT Maven/Surefire).
+# Maven Central was unreachable in the execution environment.
+# Incorrect book deletion logic
+
+## Injected change (diff)
+--- BookInventory(original)
++++ buggy
+@@ -102,3 +102,3 @@
+         }
+-        return books.remove(index);
++        return books.remove(0);
+     }
+
+## Run with BUG injected (failures only)
+FAIL  BookInventoryTest$EdgeCaseTests.multipleConsecutiveCrudOperations_leaveConsistentState  -> com.library.inventory.DuplicateBookException: A book with ISBN 9780132350884 already exists.
+FAIL  BookInventoryTest$DeleteTests.deleteExistingBook_removesIt  -> java.lang.AssertionError: expected: <9780132350884> but was: <9780134685991>
+FAIL  BookInventoryTest$DeleteTests.deleteLeavesUnrelatedBooksUnchanged  -> com.library.inventory.BookNotFoundException: No book found with ISBN: 9780134685991
+FAIL  BookInventoryTest$DeleteTests.deletedBook_nolongerExists  -> java.lang.AssertionError: expected: <false> but was: <true>
+Tests run: 78, Passed: 74, Failed: 4, Skipped: 0
+
+## Run after FIX (original corrected code restored)
+Tests run: 78, Passed: 78, Failed: 0, Skipped: 0

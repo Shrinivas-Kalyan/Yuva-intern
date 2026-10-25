@@ -1,0 +1,19 @@
+# Executed 2026-10-25 with a local JUnit-compatible mini runner (NOT Maven/Surefire).
+# Maven Central was unreachable in the execution environment.
+# Incorrect ISBN search condition
+
+## Injected change (diff)
+--- BookInventory(original)
++++ buggy
+@@ -110,3 +110,3 @@
+         for (int i = 0; i < books.size(); i++) {
+-            if (books.get(i).getIsbn().equals(normalizedIsbn)) {
++            if (books.get(i).getIsbn().startsWith(normalizedIsbn)) {
+                 return i;
+
+## Run with BUG injected (failures only)
+FAIL  BookInventoryTest$ReadTests.searchWithPartialIsbn_doesNotMatch  -> java.lang.AssertionError: expected: <false> but was: <true>
+Tests run: 78, Passed: 77, Failed: 1, Skipped: 0
+
+## Run after FIX (original corrected code restored)
+Tests run: 78, Passed: 78, Failed: 0, Skipped: 0

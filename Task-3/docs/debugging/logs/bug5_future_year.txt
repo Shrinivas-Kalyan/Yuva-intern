@@ -1,0 +1,21 @@
+# Executed 2026-10-25 with a local JUnit-compatible mini runner (NOT Maven/Surefire).
+# Maven Central was unreachable in the execution environment.
+# Invalid publication year accepted
+
+## Injected change (diff)
+--- BookValidator(original)
++++ buggy
+@@ -59,3 +59,3 @@
+         }
+-        if (year > maxYear()) {
++        if (year > 9999) {
+             throw new InvalidBookException(
+
+## Run with BUG injected (failures only)
+FAIL  BookValidatorTest.validateYear_upperBoundary_currentYearOkNextYearRejected  -> java.lang.AssertionError: Expected com.library.inventory.InvalidBookException to be thrown, but nothing was thrown.
+FAIL  BookInventoryTest$EdgeCaseTests.yearBoundaryValues_areAcceptedAtLimitsAndRejectedBeyond  -> java.lang.AssertionError: Expected com.library.inventory.InvalidBookException to be thrown, but nothing was thrown.
+FAIL  BookInventoryTest$CreateTests.addBookWithFutureYear_isRejected  -> java.lang.AssertionError: Expected com.library.inventory.InvalidBookException to be thrown, but nothing was thrown.
+Tests run: 78, Passed: 75, Failed: 3, Skipped: 0
+
+## Run after FIX (original corrected code restored)
+Tests run: 78, Passed: 78, Failed: 0, Skipped: 0

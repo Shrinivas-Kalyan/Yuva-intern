@@ -1,0 +1,22 @@
+# Executed 2026-10-25 with a local JUnit-compatible mini runner (NOT Maven/Surefire).
+# Maven Central was unreachable in the execution environment.
+# Duplicate ISBN validation failure (off-by-one)
+
+## Injected change (diff)
+--- BookInventory(original)
++++ buggy
+@@ -25,3 +25,3 @@
+         }
+-        if (indexOf(book.getIsbn()) >= 0) {
++        if (indexOf(book.getIsbn()) > 0) {
+             throw new DuplicateBookException(book.getIsbn());
+
+## Run with BUG injected (failures only)
+FAIL  BookInventoryTest$EdgeCaseTests.failedOperationsDoNotCorruptLaterOperations  -> java.lang.AssertionError: Expected com.library.inventory.DuplicateBookException to be thrown, but nothing was thrown.
+FAIL  BookInventoryTest$CreateTests.addBookWithExistingIsbn_throwsDuplicateAndKeepsOriginal  -> java.lang.AssertionError: Expected com.library.inventory.DuplicateBookException to be thrown, but nothing was thrown.
+FAIL  BookInventoryTest$CreateTests.addBookWithSameIsbnInDifferentFormat_isDuplicate  -> java.lang.AssertionError: Expected com.library.inventory.DuplicateBookException to be thrown, but nothing was thrown.
+FAIL  InventoryAppTest.addBookWithDuplicateIsbn_showsError  -> java.lang.AssertionError: expected: <true> but was: <false>
+Tests run: 78, Passed: 74, Failed: 4, Skipped: 0
+
+## Run after FIX (original corrected code restored)
+Tests run: 78, Passed: 78, Failed: 0, Skipped: 0

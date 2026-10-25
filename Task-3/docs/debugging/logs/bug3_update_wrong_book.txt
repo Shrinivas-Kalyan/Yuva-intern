@@ -1,0 +1,23 @@
+# Executed 2026-10-25 with a local JUnit-compatible mini runner (NOT Maven/Surefire).
+# Maven Central was unreachable in the execution environment.
+# Update operation modifying the wrong book
+
+## Injected change (diff)
+--- BookInventory(original)
++++ buggy
+@@ -72,3 +72,3 @@
+ 
+-        Book book = books.get(index);
++        Book book = books.get(0);
+         book.setTitle(title);
+
+## Run with BUG injected (failures only)
+FAIL  BookInventoryTest$EdgeCaseTests.multipleConsecutiveCrudOperations_leaveConsistentState  -> java.lang.AssertionError: expected: <A2> but was: <C>
+FAIL  BookInventoryTest$UpdateTests.updateAuthor_isStored  -> java.lang.AssertionError: expected: <Uncle Bob> but was: <Robert C. Martin>
+FAIL  BookInventoryTest$UpdateTests.updateModifiesOnlyTheTargetBook  -> java.lang.AssertionError: expected: <Effective Java> but was: <Changed>
+FAIL  BookInventoryTest$UpdateTests.updatePublicationYear_isStored  -> java.lang.AssertionError: expected: <2006> but was: <2005>
+FAIL  InventoryAppTest.fullSessionOfConsecutiveOperations_worksEndToEnd  -> java.lang.AssertionError: expected: <true> but was: <false>
+Tests run: 78, Passed: 73, Failed: 5, Skipped: 0
+
+## Run after FIX (original corrected code restored)
+Tests run: 78, Passed: 78, Failed: 0, Skipped: 0
